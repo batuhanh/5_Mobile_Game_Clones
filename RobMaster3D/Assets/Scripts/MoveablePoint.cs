@@ -7,9 +7,11 @@ public class MoveablePoint : MonoBehaviour
     private Vector3 mOffset;
     private float mZCoord;
     [SerializeField] private GameObject positionSphere;
+    private Vector3 startPos;
     private void Start()
     {
         transform.position = positionSphere.transform.position;
+        startPos = transform.position;
     }
     private void OnMouseDown()
     {
@@ -24,7 +26,7 @@ public class MoveablePoint : MonoBehaviour
     }
     private void OnMouseUp()
     {
-       // transform.position = new Vector3(positionSphere.transform.position.x,transform.position.y, positionSphere.transform.position.z);
+       //transform.position = new Vector3(positionSphere.transform.position.x,transform.position.y, positionSphere.transform.position.z);
         transform.position = positionSphere.transform.position;
     }
     private Vector3 GetMouseAsWorldPoint() 
