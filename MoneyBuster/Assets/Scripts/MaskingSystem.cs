@@ -9,8 +9,8 @@ public class MaskingSystem : MonoBehaviour
     public GameObject[] moneyStackMoneys;
     private void DetectMoneys()
     {
-        moneys = GameObject.FindGameObjectsWithTag("MoneyWillMask");
-        moneyStackMoneys = GameObject.FindGameObjectsWithTag("MoneyStackWillMask");
+        moneys = GameObject.FindGameObjectsWithTag("MoneyWillMask"); // this array holds money that can holded
+        moneyStackMoneys = GameObject.FindGameObjectsWithTag("MoneyStackWillMask");//this array holds moneys on the stack
     }
     private void MaskMoneys() //Changin renderQueue of moneys so they can be affected from my Mask shader
     {

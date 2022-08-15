@@ -42,7 +42,7 @@ public class Moveable : MonoBehaviour
         canMoveBack = false;
         mZCoord = Camera.main.WorldToScreenPoint(
             gameObject.transform.position).z;
-        mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
+        mOffset = gameObject.transform.position - GetMouseAsWorldPoint(); //calcualting offset between mouseworld position to object position
     }
 
     void OnMouseDrag()

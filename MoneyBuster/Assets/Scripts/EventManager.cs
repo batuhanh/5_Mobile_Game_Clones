@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * This is my EventManager Class, It holds all of the event that this project has. So it is became to more easy to understand Events of project.
+ * This is my EventManager Class, It holds all of the event that this 
+ * project has. So it is became to more easy to understand Events of project.
  */
 public class EventManager : MonoBehaviour
 {

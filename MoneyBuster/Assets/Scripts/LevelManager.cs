@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour
         eventManager.CallLevelStartedEvent();
         
     }
-    private void LoadCurrentlevel() 
+    private void LoadCurrentlevel() //Loading current level according to data from Playerprefs
     {
         foreach (GameObject l in levels)
         {
@@ -29,17 +29,17 @@ public class LevelManager : MonoBehaviour
         levels[currentLevel % levels.Length].SetActive(true);
         levelText.text = "Lv. "+currentLevel.ToString();
     }
-    private void LevelCompleted()
+    private void LevelCompleted()//Increasing currentlevel and opening Win Menu
     {
         currentLevel++;
         PlayerPrefs.SetInt("level", currentLevel);
         winMenu.SetActive(true);
     }
-    public void RestartScene()
+    public void RestartScene() // Restarting scene to load new or existing level
     {
         SceneManager.LoadScene(0);
     }
-    private void LevelFailed()
+    private void LevelFailed()//Opening Fail Menu
     {
         failMenu.SetActive(true);
     }

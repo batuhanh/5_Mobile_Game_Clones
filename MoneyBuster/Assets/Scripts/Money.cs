@@ -124,7 +124,7 @@ public class Money : Moveable
         yield return new WaitForSeconds(0.6f);
         gameObject.SetActive(false);
     }
-    private void SetVisualForMagnificentGlass()
+    private void SetVisualForMagnificentGlass()//This method is opening right child object for Magnificent Glass
     {
         foreach (GameObject M in moneyStateObjects)
         {
@@ -139,7 +139,7 @@ public class Money : Moveable
             moneyStateObjects[0].SetActive(true);
         }
     }
-    private void SetVisualForUVLight()
+    private void SetVisualForUVLight()//This method is opening right child object for UVlight
     {
         foreach (GameObject M in moneyStateObjects)
         {
