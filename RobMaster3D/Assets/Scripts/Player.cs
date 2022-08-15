@@ -46,6 +46,13 @@ public class Player : MonoBehaviour
             speed = 10f;
             ChangeActivenessOfSpheres(false);
         }
+        if (other.gameObject.CompareTag("LevelWinCube"))
+        {
+            other.gameObject.tag = "Untagged";
+            eventManager.CallLevelCompletedEvent();
+            canMove = false;
+
+        }
     }
     private void ChangeActivenessOfSpheres(bool willBeActive)
     {
@@ -62,12 +69,19 @@ public class Player : MonoBehaviour
     {
         canMove = true;
     }
+    private void StopPlayer()
+    {
+        canMove = false;
+        ChangeActivenessOfSpheres(false);
+    }
     void OnEnable()
     {
         EventManager.myLevelStarted += StartPlayer;
+        EventManager.myLevelFailed += StopPlayer;
     }
     void OnDisable()
     {
         EventManager.myLevelStarted -= StartPlayer;
+        EventManager.myLevelFailed -= StopPlayer;
     }
 }

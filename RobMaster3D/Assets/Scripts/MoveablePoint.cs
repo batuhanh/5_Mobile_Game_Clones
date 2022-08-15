@@ -35,8 +35,8 @@ public class MoveablePoint : MonoBehaviour
                 {
                     positionSphereMR.material.SetColor("_Color", redColor);
                 }
-              
-                if (hit.distance<1.1f && !isFailed)
+
+                if (hit.distance < 1.1f && !isFailed)
                 {
                     //failed
                     Debug.Log("Failed");

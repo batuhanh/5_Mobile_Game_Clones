@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PositionBox
   - FreeMoveBox
+  - LevelWinCube
   layers:
   - Default
   - TransparentFX

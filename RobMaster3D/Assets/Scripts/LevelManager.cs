@@ -29,19 +29,19 @@ public class LevelManager : MonoBehaviour
         levels[currentLevel % levels.Length].SetActive(true);
         levelText.text = "Lv. " + currentLevel.ToString();
     }
-    private void LevelCompleted()//Increasing currentlevel and opening Win Menu
+    private void LevelCompleted()
     {
         currentLevel++;
         PlayerPrefs.SetInt("level", currentLevel);
         winMenu.SetActive(true);
     }
-    public void RestartScene() // Restarting scene to load new or existing level
+    public void RestartScene() 
     {
         SceneManager.LoadScene(0);
     }
-    private void LevelFailed()//Opening Fail Menu
+    private void LevelFailed()
     {
-        failMenu.SetActive(true);
+       failMenu.SetActive(true);
     }
     void OnEnable()
     {
