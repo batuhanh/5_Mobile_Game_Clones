@@ -17,6 +17,12 @@ public class EventManager : MonoBehaviour
 
     public delegate void LevelFailed();
     public static event LevelFailed myLevelFailed;
+
+    public delegate void HittedPositionBox();
+    public static event HittedPositionBox hittedPositionBox;
+
+    public delegate void HittedFreeMoveBox();
+    public static event HittedFreeMoveBox hittedFreeMoveBox;
     public void CallLevelStartedEvent()
     {
         if (myLevelStarted != null)
@@ -32,7 +38,16 @@ public class EventManager : MonoBehaviour
         if (myLevelFailed != null)
             myLevelFailed();
     }
-
+    public void CallHittedPositionBoxEvent()
+    {
+        if (hittedPositionBox != null)
+            hittedPositionBox();
+    }
+    public void CallHittedFreeMoveBoxEvent()
+    {
+        if (hittedFreeMoveBox != null)
+            hittedFreeMoveBox();
+    }
 
 }
 
