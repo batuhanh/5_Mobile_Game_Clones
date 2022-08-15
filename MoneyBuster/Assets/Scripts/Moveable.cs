@@ -33,8 +33,9 @@ public class Moveable : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    public virtual void OnMouseDown()
     {
+        Debug.Log("OnMouseDown");
         canMoveBack = false;
         mZCoord = Camera.main.WorldToScreenPoint(
             gameObject.transform.position).z;

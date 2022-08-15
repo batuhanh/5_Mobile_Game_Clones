@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Money : Moveable
 {
     [SerializeField] private bool isHaveTargetPoint = false;
     [SerializeField] private GameObject[] targetPoints;
+
     public override void Start()
     {
         base.Start();
@@ -18,6 +20,7 @@ public class Money : Moveable
     {
         targetPos = DetectTargetPos();
         canMoveBack = true;
+
     }
     private Vector3 DetectTargetPos()
     {
@@ -25,7 +28,7 @@ public class Money : Moveable
         if (isHaveTargetPoint && IsCloseAnyTargetPoint())
         {
             targetPos = GetClosestTargetPoint();
-           
+
         }
         else
         {
@@ -69,15 +72,19 @@ public class Money : Moveable
         {
             if (targetObj.gameObject.GetComponent<MoneyPlacementObject>().myMoneyPlacementType == MoneyPlacementType.Shredder)
             {
-                //disable money
                 gameObject.SetActive(false);
             }
             else if (targetObj.gameObject.GetComponent<MoneyPlacementObject>().myMoneyPlacementType == MoneyPlacementType.Stacker)
             {
-                //rotate money
                 startRot = Quaternion.Euler(startRot.x, 90f, startRot.z);
-               
+                StartCoroutine(DeactiveWithDelay());
+                
             }
         }
+    }
+    private IEnumerator DeactiveWithDelay()
+    {
+        yield return new WaitForSeconds(0.6f);
+        gameObject.SetActive(false);
     }
 }
