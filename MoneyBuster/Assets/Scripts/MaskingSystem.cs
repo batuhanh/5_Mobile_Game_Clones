@@ -4,15 +4,56 @@ using UnityEngine;
 
 public class MaskingSystem : MonoBehaviour
 {
-    public GameObject maskObj;
-
-    private void Start()
+ 
+    private GameObject[] moneys;
+    public GameObject[] moneyStackMoneys;
+    private void DetectMoneys()
     {
-        MaskIt();
+        moneys = GameObject.FindGameObjectsWithTag("MoneyWillMask");
+        moneyStackMoneys = GameObject.FindGameObjectsWithTag("MoneyStackWillMask");
     }
-    public void MaskIt()
+    private void MaskMoneys()
     {
-        maskObj.gameObject.GetComponent<MeshRenderer>().material.renderQueue = 3002;
+        foreach (GameObject m in moneys)
+        {
+            m.gameObject.GetComponent<MeshRenderer>().material.renderQueue = 3002;
+        }
+        foreach (GameObject m in moneyStackMoneys)
+        {
+            m.gameObject.GetComponent<MeshRenderer>().material.renderQueue = 3002;
+        }
+    }
+
+    private void MakeActiveStackMoneys()
+    {
+        Debug.Log("MakeActive");
+        foreach (GameObject m in moneyStackMoneys)
+        {
+            m.gameObject.GetComponent<MeshRenderer>().material.renderQueue = 3002;
+        }
+    }
+    private void MakeDeactiveStackMoneys()
+    {
+        Debug.Log("MakeDeactive");
+        foreach (GameObject m in moneyStackMoneys)
+        {
+            m.gameObject.GetComponent<MeshRenderer>().material.renderQueue = 2000;
+        }
+    }
+
+    void OnEnable()
+    {
+        EventManager.myLevelStarted += DetectMoneys;
+        EventManager.myLevelStarted += MaskMoneys;
+        EventManager.magnifiyingGlassSelected += MakeDeactiveStackMoneys;
+        EventManager.uvLightSelected += MakeActiveStackMoneys;
+    }
+    void OnDisable()
+    {
+        EventManager.myLevelStarted -= DetectMoneys;
+        EventManager.myLevelStarted -= MaskMoneys;
+        EventManager.magnifiyingGlassSelected -= MakeDeactiveStackMoneys;
+        EventManager.uvLightSelected -= MakeActiveStackMoneys;
     }
 
 }
