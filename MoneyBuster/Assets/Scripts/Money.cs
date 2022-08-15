@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This enum is holding the names of MoneyState
 public enum MoneyState
 {
     GreenNormal,
@@ -9,13 +10,15 @@ public enum MoneyState
     PurpleNormal,
     PurpleFake
 }
-
+/*
+ * This class is inherit from Moveable
+ */
 public class Money : Moveable
 {
     [SerializeField] private bool isHaveTargetPoint = false;
-    [SerializeField] private GameObject[] targetPoints;
-    [SerializeField] private GameObject[] moneyStateObjects;
-    public MoneyState actualMoneyState;
+    [SerializeField] private GameObject[] targetPoints;//MoneyStacker and MoneyShredder Objects
+    [SerializeField] private GameObject[] moneyStateObjects;// the child objects for states
+    public MoneyState actualMoneyState; // our current state of money
     
     public override void Start()
     {
@@ -32,7 +35,7 @@ public class Money : Moveable
         canMoveBack = true;
 
     }
-    public void SetupMoneyObjects()
+    public void SetupMoneyObjects() //setting active the right object for our current state and deactive others.
     {
         foreach (GameObject M in moneyStateObjects)
         {
@@ -55,7 +58,7 @@ public class Money : Moveable
             moneyStateObjects[3].SetActive(true);
         }
     }
-    private Vector3 DetectTargetPos()
+    private Vector3 DetectTargetPos() //If is there any closest target this method is returns target position value as a Vector3
     {
         Vector3 targetPos = new Vector3();
         if (isHaveTargetPoint && IsCloseAnyTargetPoint())
@@ -70,7 +73,7 @@ public class Money : Moveable
         return targetPos;
 
     }
-    private bool IsCloseAnyTargetPoint()
+    private bool IsCloseAnyTargetPoint()// Checking for are there any close target object if is exist returns true
     {
         foreach (GameObject tp in targetPoints)
         {
@@ -82,7 +85,7 @@ public class Money : Moveable
         return false;
     }
 
-    private Vector3 GetClosestTargetPoint()
+    private Vector3 GetClosestTargetPoint() //This method is detecting closest target object and returns its position
     {
         float closestDistance = float.MaxValue;
         GameObject closestTarget = new GameObject();
@@ -96,10 +99,10 @@ public class Money : Moveable
                 closestTarget = tp;
             }
         }
-        CheckPlacementType(closestTarget);
+        CheckPlacementType(closestTarget); 
         return closestTargetPoint;
     }
-    private void CheckPlacementType(GameObject targetObj)
+    private void CheckPlacementType(GameObject targetObj)//this method is checking which type of target is money landed
     {
         if (targetObj.gameObject.GetComponent<MoneyPlacementObject>())
         {

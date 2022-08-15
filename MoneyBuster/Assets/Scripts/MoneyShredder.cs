@@ -6,7 +6,7 @@ public class MoneyShredder : MoneyPlacementObject
 {
     private bool willWin = false;
     [SerializeField] private Animator stackerAnim;
-    public void CheckMoney(MoneyState moneyState)
+    public void CheckMoney(MoneyState moneyState)//This method is checking for is it the right money type or not
     {
         myAnim.SetTrigger("MoneyShredStart");
         if (moneyState == MoneyState.GreenFake || moneyState == MoneyState.PurpleFake)
@@ -19,6 +19,7 @@ public class MoneyShredder : MoneyPlacementObject
         }
         StartCoroutine(CheckForWin());
     }
+    //this corotuine basically checking a bool that setted before with a delay and calling fail or win event according to bool
     private IEnumerator CheckForWin()
     {
         yield return new WaitForSeconds(1f);

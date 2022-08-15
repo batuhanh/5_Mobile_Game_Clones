@@ -12,7 +12,7 @@ public class MaskingSystem : MonoBehaviour
         moneys = GameObject.FindGameObjectsWithTag("MoneyWillMask");
         moneyStackMoneys = GameObject.FindGameObjectsWithTag("MoneyStackWillMask");
     }
-    private void MaskMoneys()
+    private void MaskMoneys() //Changin renderQueue of moneys so they can be affected from my Mask shader
     {
         foreach (GameObject m in moneys)
         {
@@ -24,7 +24,7 @@ public class MaskingSystem : MonoBehaviour
         }
     }
 
-    private void MakeActiveStackMoneys()
+    private void MakeActiveStackMoneys() //Changing renderQueue of moneys on the stack to 3002 so they can affect from my Mask Shader
     {
         Debug.Log("MakeActive");
         foreach (GameObject m in moneyStackMoneys)
@@ -32,7 +32,7 @@ public class MaskingSystem : MonoBehaviour
             m.gameObject.GetComponent<MeshRenderer>().material.renderQueue = 3002;
         }
     }
-    private void MakeDeactiveStackMoneys()
+    private void MakeDeactiveStackMoneys()//Changing renderQueue of moneys on the stack to 2000 so they can not affect from my Mask Shader
     {
         Debug.Log("MakeDeactive");
         foreach (GameObject m in moneyStackMoneys)

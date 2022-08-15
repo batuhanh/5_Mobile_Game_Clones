@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//Basic LevelManager CLass that have some levelstart levelwin levelfailed type methods 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private EventManager eventManager;
@@ -19,7 +20,7 @@ public class LevelManager : MonoBehaviour
         eventManager.CallLevelStartedEvent();
         
     }
-    private void LoadCurrentlevel()
+    private void LoadCurrentlevel() 
     {
         foreach (GameObject l in levels)
         {

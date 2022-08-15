@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+ This class is for object that can be move with mouse.
+ */
 public class Moveable : MonoBehaviour
 {
     
-    [SerializeField] private float moveHeight;
-    [SerializeField] protected float moveBackSpeed = 10f;
+    [SerializeField] private float moveHeight; 
+    [SerializeField] protected float moveBackSpeed = 10f; 
 
     protected Vector3 startPos;
-    protected Quaternion startRot;
+    protected Quaternion startRot; 
 
-    private Vector3 mOffset;
+    private Vector3 mOffset; 
     private float mZCoord;
     protected bool canMoveBack = false;
     protected Vector3 targetPos;
@@ -20,9 +23,9 @@ public class Moveable : MonoBehaviour
     {
         startPos = transform.position;
     }
-    public virtual void Update()
+    public virtual void Update() //just lerping position and rotation vectors inside Update method. 
     {
-        if (canMoveBack)
+        if (canMoveBack) 
         {
             transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * moveBackSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, startRot, Time.deltaTime * moveBackSpeed);
@@ -33,7 +36,7 @@ public class Moveable : MonoBehaviour
         }
     }
 
-    public virtual void OnMouseDown()
+    public virtual void OnMouseDown() 
     {
         Debug.Log("OnMouseDown");
         canMoveBack = false;
@@ -48,7 +51,7 @@ public class Moveable : MonoBehaviour
     }
   
 
-    private Vector3 GetMouseAsWorldPoint()
+    private Vector3 GetMouseAsWorldPoint() //This method is converting mouse position to World Space Coordinate Positon
     {
         Vector3 mousePoint = Input.mousePosition;
         mousePoint.z = mZCoord;

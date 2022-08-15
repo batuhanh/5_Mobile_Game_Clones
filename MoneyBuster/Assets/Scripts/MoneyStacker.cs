@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoneyStacker : MoneyPlacementObject
 {
     private bool willWin = false;
-    public void CheckMoney(MoneyState moneyState)
+    public void CheckMoney(MoneyState moneyState) //This method is checking for is it the right money type or not
     {
         myAnim.SetTrigger("AddMoney");
         if (moneyState==MoneyState.GreenNormal || moneyState == MoneyState.PurpleNormal)
@@ -18,7 +18,9 @@ public class MoneyStacker : MoneyPlacementObject
         }
         StartCoroutine(CheckForWin());
     }
-    private IEnumerator CheckForWin()
+
+    //this corotuine basically checking a bool that setted before with a delay and calling fail or win event according to bool
+    private IEnumerator CheckForWin() 
     {
         
         yield return new WaitForSeconds(1f);
