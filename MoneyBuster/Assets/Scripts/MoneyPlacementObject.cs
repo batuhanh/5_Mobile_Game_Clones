@@ -10,4 +10,7 @@ public enum MoneyPlacementType
 public class MoneyPlacementObject : MonoBehaviour
 {
     public MoneyPlacementType myMoneyPlacementType;
+    public Animator myAnim;
+    public EventManager eventManager;
+
 }

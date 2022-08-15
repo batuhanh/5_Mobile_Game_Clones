@@ -10,12 +10,14 @@ public class EventManager : MonoBehaviour
     public delegate void UVLightSelected();
     public static event UVLightSelected uvLightSelected;
 
-    public delegate void MoneyDroppedToTarget();
-    public static event MoneyDroppedToTarget moneyDroppedToTarget;
+    public delegate void LevelStarted();
+    public static event LevelStarted myLevelStarted;
 
-    public delegate void levelStarted();
-    public static event levelStarted myLevelStarted;
+    public delegate void LevelCompleted();
+    public static event LevelCompleted myLevelCompleted;
 
+    public delegate void LevelFailed();
+    public static event LevelFailed myLevelFailed;
     public void CallMagnifiyingGlassSelectedEvent()
     {
         if (magnifiyingGlassSelected != null)
@@ -30,6 +32,16 @@ public class EventManager : MonoBehaviour
     {
         if (myLevelStarted != null)
             myLevelStarted();
+    }
+    public void CallLevelCompletedEvent()
+    {
+        if (myLevelCompleted != null)
+            myLevelCompleted();
+    }
+    public void CallLevelFailedEvent()
+    {
+        if (myLevelFailed != null)
+            myLevelFailed();
     }
 
 

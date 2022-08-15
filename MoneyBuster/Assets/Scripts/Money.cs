@@ -106,12 +106,13 @@ public class Money : Moveable
             if (targetObj.gameObject.GetComponent<MoneyPlacementObject>().myMoneyPlacementType == MoneyPlacementType.Shredder)
             {
                 gameObject.SetActive(false);
+                targetObj.gameObject.GetComponent<MoneyShredder>().CheckMoney(actualMoneyState);
             }
             else if (targetObj.gameObject.GetComponent<MoneyPlacementObject>().myMoneyPlacementType == MoneyPlacementType.Stacker)
             {
                 startRot = Quaternion.Euler(startRot.x, 90f, startRot.z);
                 StartCoroutine(DeactiveWithDelay());
-                
+                targetObj.gameObject.GetComponent<MoneyStacker>().CheckMoney(actualMoneyState);
             }
         }
     }
