@@ -34,6 +34,7 @@ public class MoveablePoint : MonoBehaviour
                 if (positionSphereMR.material.GetColor("_Color") != redColor)
                 {
                     positionSphereMR.material.SetColor("_Color", redColor);
+                    positionSphere.gameObject.GetComponent<Animator>().SetBool("isRed", true);
                 }
 
                 if (hit.distance < 1.1f && !isFailed)
@@ -50,6 +51,7 @@ public class MoveablePoint : MonoBehaviour
                 if (positionSphereMR.material.GetColor("_Color") != greenColor)
                 {
                     positionSphereMR.material.SetColor("_Color", greenColor);
+                    positionSphere.gameObject.GetComponent<Animator>().SetBool("isRed", false);
                 }
             }
         }
