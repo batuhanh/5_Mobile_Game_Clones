@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 
 
 public class Ring : Moveable
@@ -11,54 +11,81 @@ public class Ring : Moveable
     [SerializeField] private MeshRenderer myMR;
     [SerializeField] private Material myGhostMat;
     [SerializeField] private GameObject ghostRing;
-    private Vector3 startPos;
+    private Ringholder myRingHolder;
+    private GameObject closestRingHolder;
+    private Vector3 defaultPos;
     void Start()
     {
-        startPos = transform.position;
+        defaultPos = transform.position;
         ringProperties.SetRingColor(myColorType, ref myMR, ref myGhostMat);
-        CheckForClickedStatus();
+        UpdateGhostColor();
 
     }
     private void Update()
     {
-        if (moveState==MoveState.Moving)
+        if (moveState == MoveState.Moving)
         {
             if (isClosedToTarget)
             {
-                GameObject closestTarget = GetClosestTargetObj();
-                if (IsTargetAvailable(closestTarget))
+                closestRingHolder = GetClosestTargetObj();
+                if (closestRingHolder.GetComponent<Ringholder>().IsListAvailable())
                 {
-                    ghostRing.transform.position = closestTarget.transform.position + new Vector3(0, 1f + closestTarget.GetComponent<Ringholder>().GetListLength() * 2f, 0);
+                    ghostRing.transform.position = closestRingHolder.transform.position + new Vector3(0, 1f + closestRingHolder.GetComponent<Ringholder>().GetListLength() * 2f, 0);
                 }
             }
             else
             {
+                closestRingHolder = null;
                 ghostRing.transform.position = new Vector3(0, -50, 0);
             }
-            
+
         }
     }
+    public override void OnMouseDown()
+    {
+        base.OnMouseDown();
+        if (canBeClicked)
+        {
+            if (moveState == MoveState.Moving)
+            {
+                myRingHolder.RemoveFromList(gameObject);
+            }
+        }
+           
+    }
+
     public override void OnMouseUp()
     {
         base.OnMouseUp();
-        if (isClosedToTarget)
+        if (canBeClicked)
         {
-            transform.position = ghostRing.transform.position;
+
+            if (isClosedToTarget)
+            {
+                Vector3 targetPos = ghostRing.transform.position;
+                transform.DOMove(closestRingHolder.transform.position + new Vector3(0, 10, 0), 0.1f).OnComplete(() =>
+                {
+                    transform.DOMove(targetPos, 0.3f).SetEase(Ease.OutBounce);
+                });
+                closestRingHolder.GetComponent<Ringholder>().AddRingToList(gameObject);
+                myRingHolder = closestRingHolder.GetComponent<Ringholder>();
+                defaultPos = ghostRing.transform.position;
+                eventManager.CallRingsOrderChangedEvent();
+            }
+            else
+            {
+                transform.position = defaultPos;
+                myRingHolder.AddRingToList(gameObject);
+
+            }
+            ghostRing.transform.position = new Vector3(0, -50, 0);
+
         }
-        else
-        {
-            Debug.Log(startPos);
-            transform.position = startPos;
-        }
-    }
-    private bool IsTargetAvailable(GameObject target)
-    {
-        return true;
     }
     private GameObject GetClosestTargetObj()
     {
         float minDistance = float.MaxValue;
-        GameObject closestObj = new GameObject();
+        GameObject closestObj= targetObjs[0];
         Vector3 offset = new Vector3(0, 5, 0);
         foreach (GameObject t in targetObjs)
         {
@@ -71,12 +98,6 @@ public class Ring : Moveable
         }
         return closestObj;
     }
-    private void CheckForClickedStatus()
-    {
-        canBeClicked = true;
-        UpdateGhostColor();
-
-    }
     private void UpdateGhostColor()
     {
         if (moveState == MoveState.Moving)
@@ -88,15 +109,17 @@ public class Ring : Moveable
     {
         transform.position = ringHolderObject.transform.position + new Vector3(0, 1f + index * 2f, 0);
     }
+    public void SetRingHolder(Ringholder newringholder)
+    {
+        myRingHolder = newringholder;
+    }
     void OnEnable()
     {
-        EventManager.ringsOrderChanged += CheckForClickedStatus;
         EventManager.ringClicked += UpdateGhostColor;
 
     }
     void OnDisable()
     {
-        EventManager.ringsOrderChanged -= CheckForClickedStatus;
         EventManager.ringClicked -= UpdateGhostColor;
 
     }

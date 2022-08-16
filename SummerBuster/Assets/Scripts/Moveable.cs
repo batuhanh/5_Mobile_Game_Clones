@@ -17,7 +17,7 @@ public class Moveable : MonoBehaviour
     private Vector3 mOffset;
     private float mZCoord;
     protected Vector3 targetPos;
-    protected bool canBeClicked = false;
+    public bool canBeClicked = false;
     protected bool isClosedToTarget = false;
     [SerializeField] protected GameObject[] targetObjs;
     [SerializeField] protected EventManager eventManager;
@@ -28,7 +28,7 @@ public class Moveable : MonoBehaviour
       
     }
 
-    void OnMouseDown()
+    public virtual void OnMouseDown()
     {
         if (canBeClicked)
         {

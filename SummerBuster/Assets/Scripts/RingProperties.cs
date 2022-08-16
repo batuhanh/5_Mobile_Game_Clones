@@ -46,5 +46,17 @@ public class RingProperties : MonoBehaviour
             ringGhostMaterial = pinkGhostMat;
         }
     }
+    private void CheckAllRingHolders()
+    {
+
+    }
+    void OnEnable()
+    {
+        EventManager.ringsOrderChanged += CheckAllRingHolders;
+    }
+    void OnDisable()
+    {
+        EventManager.ringsOrderChanged -= CheckAllRingHolders;
+    }
 }
 
