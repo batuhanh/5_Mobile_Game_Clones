@@ -27,7 +27,7 @@ public class MoveablePoint : MonoBehaviour
         if (canRaycast)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMask))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 12f, layerMask))
             {
                 // Debug.DrawRay(transform.position, transform.forward, Color.yellow);
                 //Hitted

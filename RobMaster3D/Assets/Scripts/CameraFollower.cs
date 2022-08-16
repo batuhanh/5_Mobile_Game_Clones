@@ -26,12 +26,18 @@ public class CameraFollower : MonoBehaviour
     {
         canFollow = true;
     }
+    private void StopCamera()
+    {
+        canFollow = false;
+    }
     void OnEnable()
     {
         EventManager.myLevelStarted += StartCamera;
+        EventManager.myLevelFailed += StopCamera;
     }
     void OnDisable()
     {
         EventManager.myLevelStarted -= StartCamera;
+        EventManager.myLevelFailed -= StopCamera;
     }
 }
