@@ -55,6 +55,32 @@ public class Ringholder : MonoBehaviour
         }
         
     }
+    public bool IsThisRingHolderOkey()
+    {
+        //Check if it is empty ringholder
+        if (ringList.Count==0)
+        {
+            return true;
+        }
+        //checking for at least 3 ring
+        if (ringList.Count < 3 )
+        {
+            return false;
+        }
+
+        //Checking for same Color
+
+        RingColorType firstType = ringList[0].gameObject.GetComponent<Ring>().myColorType;
+        foreach (GameObject ring in ringList)
+        {
+            if (ring.gameObject.GetComponent<Ring>().myColorType != firstType)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
     void OnEnable()
     {
         EventManager.myLevelStarted += UpdateRingsPoses;

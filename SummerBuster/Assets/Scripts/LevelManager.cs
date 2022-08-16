@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("level", 0);
-        //LoadCurrentlevel();
+        LoadCurrentlevel();
         eventManager.CallLevelStartedEvent();
 
     }
@@ -42,6 +42,10 @@ public class LevelManager : MonoBehaviour
     private void LevelFailed()//Opening Fail Menu
     {
         failMenu.SetActive(true);
+    }
+    public GameObject GetCurrentLevelObject()
+    {
+        return levels[currentLevel % levels.Length];
     }
     void OnEnable()
     {

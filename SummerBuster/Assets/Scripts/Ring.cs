@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Ring : Moveable
 {
-    [SerializeField] private RingColorType myColorType;
+    public RingColorType myColorType;
     [SerializeField] private RingProperties ringProperties;
     [SerializeField] private MeshRenderer myMR;
     [SerializeField] private Material myGhostMat;

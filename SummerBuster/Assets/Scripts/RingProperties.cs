@@ -11,6 +11,8 @@ public enum RingColorType
 }
 public class RingProperties : MonoBehaviour
 {
+    [SerializeField] LevelManager levelManager;
+    [SerializeField] EventManager eventManager;
     [Header("Ring Materials")]
     public Material greenMat;
     public Material orangeMat;
@@ -23,6 +25,7 @@ public class RingProperties : MonoBehaviour
     public Material blueGhostMat;
     public Material pinkGhostMat;
 
+    private Ringholder[] ringHolders;
     public void SetRingColor(RingColorType currentColorState, ref MeshRenderer ringMesh, ref Material ringGhostMaterial)
     {
         if (currentColorState==RingColorType.Green)
@@ -46,9 +49,31 @@ public class RingProperties : MonoBehaviour
             ringGhostMaterial = pinkGhostMat;
         }
     }
+    private void LoadAllRingHolders()
+    {
+        ringHolders = levelManager.GetCurrentLevelObject().gameObject.GetComponentsInChildren<Ringholder>();
+    }
     private void CheckAllRingHolders()
     {
-
+        bool isAllRingOkey = true;
+        if (ringHolders==null)
+        {
+            LoadAllRingHolders();
+            Debug.Log("LoadAllRingHolders");
+        }
+        foreach (Ringholder rh in ringHolders)
+        {
+            if (!rh.IsThisRingHolderOkey())
+            {
+                isAllRingOkey = false;
+            }
+        }
+        if (isAllRingOkey)
+        {
+            //Win
+            Debug.Log("Win");
+            eventManager.CallLevelCompletedEvent();
+        }
     }
     void OnEnable()
     {
