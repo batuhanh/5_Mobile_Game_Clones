@@ -16,6 +16,12 @@ public class EventManager : MonoBehaviour
 
     public delegate void LevelFailed();
     public static event LevelFailed myLevelFailed;
+
+    public delegate void RingsOrderChanged();
+    public static event RingsOrderChanged ringsOrderChanged;
+
+    public delegate void RingClicked();
+    public static event RingClicked ringClicked;
     public void CallLevelStartedEvent()
     {
         if (myLevelStarted != null)
@@ -31,7 +37,16 @@ public class EventManager : MonoBehaviour
         if (myLevelFailed != null)
             myLevelFailed();
     }
-
+    public void CallRingsOrderChangedEvent()
+    {
+        if (ringsOrderChanged != null)
+            ringsOrderChanged();
+    }
+    public void CallRingClickedEvent()
+    {
+        if (ringClicked != null)
+            ringClicked();
+    }
 
 }
 
