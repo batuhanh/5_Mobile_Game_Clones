@@ -23,7 +23,7 @@ public class Ring : Moveable
     }
     private void Update()
     {
-        if (moveState == MoveState.Moving)
+        if (isActive&&moveState == MoveState.Moving)
         {
             if (isClosedToTarget)
             {
@@ -44,7 +44,7 @@ public class Ring : Moveable
     public override void OnMouseDown()
     {
         base.OnMouseDown();
-        if (canBeClicked)
+        if (isActive&&canBeClicked)
         {
             if (moveState == MoveState.Moving)
             {
@@ -57,7 +57,7 @@ public class Ring : Moveable
     public override void OnMouseUp()
     {
         base.OnMouseUp();
-        if (canBeClicked)
+        if (isActive&&canBeClicked)
         {
 
             if (isClosedToTarget)
@@ -113,15 +113,20 @@ public class Ring : Moveable
     {
         myRingHolder = newringholder;
     }
+    private void MakeItInactive()
+    {
+        isActive = false;
+    }
     void OnEnable()
     {
         EventManager.ringClicked += UpdateGhostColor;
+        EventManager.myLevelCompleted += MakeItInactive;
 
     }
     void OnDisable()
     {
         EventManager.ringClicked -= UpdateGhostColor;
-
+        EventManager.myLevelCompleted -= MakeItInactive;
     }
 
 }

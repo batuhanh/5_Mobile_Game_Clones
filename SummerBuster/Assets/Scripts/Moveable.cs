@@ -19,6 +19,7 @@ public class Moveable : MonoBehaviour
     protected Vector3 targetPos;
     public bool canBeClicked = false;
     protected bool isClosedToTarget = false;
+    [SerializeField] protected bool isActive = true;
     [SerializeField] protected GameObject[] targetObjs;
     [SerializeField] protected EventManager eventManager;
     [SerializeField] protected MoveState moveState;
@@ -30,7 +31,7 @@ public class Moveable : MonoBehaviour
 
     public virtual void OnMouseDown()
     {
-        if (canBeClicked)
+        if (isActive&&canBeClicked)
         {
             moveState = MoveState.Moving;
             eventManager.CallRingClickedEvent();
@@ -43,7 +44,7 @@ public class Moveable : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (canBeClicked)
+        if (isActive&&canBeClicked)
         {
             transform.position = new Vector3((GetMouseAsWorldPoint() + mOffset).x, (GetMouseAsWorldPoint() + mOffset).y, transform.position.z);
             isClosedToTarget = IsCloseAnyTarget();
@@ -51,7 +52,7 @@ public class Moveable : MonoBehaviour
     }
     public virtual void OnMouseUp()
     {
-        if (canBeClicked)
+        if (isActive&&canBeClicked)
         {
             moveState = MoveState.Locked;
         }
@@ -76,6 +77,7 @@ public class Moveable : MonoBehaviour
         mousePoint.z = mZCoord;
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
+   
 
 
 
