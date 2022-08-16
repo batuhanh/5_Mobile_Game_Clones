@@ -16,7 +16,7 @@ public class EventManager : MonoBehaviour
 
     public delegate void LevelFailed();
     public static event LevelFailed myLevelFailed;
-   
+
     public void CallLevelStartedEvent()
     {
         if (myLevelStarted != null)

@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     {
         currentLevel = PlayerPrefs.GetInt("level", 0);
         LoadCurrentlevel();
-        eventManager.CallLevelStartedEvent();
+        StartCoroutine(StartWithDelay());
 
     }
     private void LoadCurrentlevel() //Loading current level according to data from Playerprefs
@@ -42,6 +42,11 @@ public class LevelManager : MonoBehaviour
     private void LevelFailed()//Opening Fail Menu
     {
         failMenu.SetActive(true);
+    }
+    private IEnumerator StartWithDelay()
+    {
+        yield return new WaitForSeconds(2.1f);
+        eventManager.CallLevelStartedEvent();
     }
     void OnEnable()
     {
