@@ -164,7 +164,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DiffuseSmoothness: 1
+    - _DiffuseSmoothness: 0.81
     - _DiffuseThresholdOffset: 0.25
     - _Dissolve: 0
     - _DissolveAmount: 0.5
@@ -189,7 +189,7 @@ Material:
     - _Light: 1
     - _LightBands: 4
     - _LightBandsScale: 0.5
-    - _LightThreshold: 0.479
+    - _LightThreshold: 0.555
     - _Metallic: 0
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
@@ -210,7 +210,7 @@ Material:
     - _Specular: 1
     - _SpecularHighlights: 1
     - _SpecularIntensity: 1
-    - _SpecularSmoothness: 0.77
+    - _SpecularSmoothness: 0.759
     - _SpecularThresholdOffset: 0.25
     - _SrcBlend: 1
     - _Stencil: 1
@@ -232,13 +232,13 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 1, g: 1, b: 1, a: 1}
+    - _AlbedoColor: {r: 1, g: 0.9565606, b: 0.7971698, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GoochDarkColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+    - _GoochDarkColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}

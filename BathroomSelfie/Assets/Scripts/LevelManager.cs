@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
             l.SetActive(false);
         }
         levels[currentLevel % levels.Length].SetActive(true);
-        levelText.text = "Lv. " + currentLevel.ToString();
+        levelText.text = "Lv. " + (currentLevel+1).ToString();
     }
     private void LevelCompleted()//Increasing currentlevel and opening Win Menu
     {
@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
     }
     private IEnumerator StartWithDelay()
     {
-        yield return new WaitForSeconds(2.1f);
+        yield return new WaitForSeconds(6.2f);
         eventManager.CallLevelStartedEvent();
     }
     void OnEnable()

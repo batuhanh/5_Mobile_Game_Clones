@@ -7,7 +7,7 @@ public class Arrow : MonoBehaviour
     public EventManager eventManager;
     public RectTransform targetBox;
     public ArrowDirection myArrowDirection;
-    private float speed = 200f;
+    private float speed = 350f;
     [SerializeField] private ArrowState arrowState;
 
     private void Start()
@@ -82,7 +82,7 @@ public class Arrow : MonoBehaviour
             else
             {
                 eventManager.CallWrongDriectionSwipedEvent();
-                Debug.Log("True Swiped");
+                Debug.Log("Wrong Swiped");
             }
         }
     }
