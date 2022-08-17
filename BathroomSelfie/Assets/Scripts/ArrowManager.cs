@@ -20,31 +20,49 @@ public class ArrowManager : MonoBehaviour
 {
     [SerializeField] private GameObject arrowPanel;
     [SerializeField] private EventManager eventManager;
+    [SerializeField] private LevelManager levelManager;
     [SerializeField] private RectTransform targetBox;
     [SerializeField] private RectTransform spawnPointTransform;
     [SerializeField] private Animator boxAnim;
     private float timer = 2f;
     private bool canSpawn = false;
+
+    private int maxSpawnCount;
+    private int spawnedCount=0;
+    private int trueSwipedCount = 0;
     private void Update()
     {
         if (canSpawn)
         {
+            
             timer += Time.deltaTime;
             if (timer>2f)
             {
-                timer = 0f;
-                //Spawn a arrow
-                GameObject newArrow = ArrowPool.Instance.RequestArrow();
-                newArrow.transform.position = spawnPointTransform.position;
-                Arrow arrowScript = newArrow.gameObject.GetComponent<Arrow>();
-                arrowScript.SetupArrow();
-                arrowScript.targetBox=targetBox;
-                arrowScript.eventManager=eventManager;
+                if (spawnedCount < maxSpawnCount)
+                {
+                    timer = 0f;
+                    spawnedCount++;
+
+                    GameObject newArrow = ArrowPool.Instance.RequestArrow();
+                    newArrow.transform.position = spawnPointTransform.position;
+                    Arrow arrowScript = newArrow.gameObject.GetComponent<Arrow>();
+                    arrowScript.SetupArrow();
+                    arrowScript.targetBox = targetBox;
+                    arrowScript.eventManager = eventManager;
+                }
+                else
+                {
+                    //Wait for last arrow to determine win or fail
+                    canSpawn = false;
+                    StartCoroutine(CheckForWinFail());
+                }
+                
             }
         }
     }
     private void StartArowSpawning()
     {
+        maxSpawnCount = levelManager.GetCurrentPhotoCount();
         arrowPanel.SetActive(true);
         canSpawn = true;
     }
@@ -56,11 +74,28 @@ public class ArrowManager : MonoBehaviour
     {
         boxAnim.SetTrigger("False");
     }
+    private void IncreaseTrueSwipedCount()
+    {
+        trueSwipedCount++;
+    }
+    private IEnumerator CheckForWinFail()
+    {
+        yield return new WaitForSeconds(3f);
+        if (trueSwipedCount>0)
+        {
+            eventManager.CallLevelCompletedEvent();
+        }
+        else
+        {
+            eventManager.CallLevelFailedEvent();
+        }
+    }
     void OnEnable()
     {
         EventManager.myLevelStarted += StartArowSpawning;
         EventManager.trueDirectionSwiped += OpenTrueAnim;
         EventManager.wrongDirectionSwiped += OpenWrongAnim;
+        EventManager.trueDirectionSwiped += IncreaseTrueSwipedCount;
 
     }
     void OnDisable()
@@ -68,6 +103,7 @@ public class ArrowManager : MonoBehaviour
         EventManager.myLevelStarted -= StartArowSpawning;
         EventManager.trueDirectionSwiped -= OpenTrueAnim;
         EventManager.wrongDirectionSwiped -= OpenWrongAnim;
+        EventManager.trueDirectionSwiped -= IncreaseTrueSwipedCount;
 
     }
 }

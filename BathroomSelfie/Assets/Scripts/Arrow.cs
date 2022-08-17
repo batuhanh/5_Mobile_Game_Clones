@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class Arrow : MonoBehaviour
 {
     public EventManager eventManager;
@@ -9,6 +9,9 @@ public class Arrow : MonoBehaviour
     public ArrowDirection myArrowDirection;
     private float speed = 350f;
     [SerializeField] private ArrowState arrowState;
+    private bool canMove = false;
+    [SerializeField] private Animator myAnim;
+    [SerializeField] private GameObject arrowImgObj;
 
     private void Start()
     {
@@ -18,7 +21,11 @@ public class Arrow : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            transform.position += new Vector3(Time.deltaTime * (-speed), 0, 0);
+            if (canMove)
+            {
+                transform.position += new Vector3(Time.deltaTime * (-speed), 0, 0);
+            }
+           
             if (transform.position.x < -800)
             {
                 gameObject.SetActive(false);
@@ -43,6 +50,7 @@ public class Arrow : MonoBehaviour
     {
         SetRandomDirection();
         arrowState = ArrowState.Spawned;
+        canMove = true;
     }
     public void SetRandomDirection()
     {
@@ -50,22 +58,22 @@ public class Arrow : MonoBehaviour
         if (myRandomVal == 0) //Up
         {
             myArrowDirection = ArrowDirection.Up;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            arrowImgObj.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (myRandomVal == 1)//Down
         {
             myArrowDirection = ArrowDirection.Down;
-            transform.rotation = Quaternion.Euler(0, 0, 180);
+            arrowImgObj.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
         else if (myRandomVal == 2)//Right
         {
             myArrowDirection = ArrowDirection.Right;
-            transform.rotation = Quaternion.Euler(0, 0, 270);
+            arrowImgObj.transform.rotation = Quaternion.Euler(0, 0, 270);
         }
         else//Left
         {
             myArrowDirection = ArrowDirection.Left;
-            transform.rotation = Quaternion.Euler(0, 0, 90);
+            arrowImgObj.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
     }
     private void CheckArrowState(SwipeDirection swipeDirection)
@@ -73,10 +81,12 @@ public class Arrow : MonoBehaviour
       
         if (arrowState == ArrowState.Near)
         {
-            arrowState = ArrowState.Used;
+            
             if (CheckDirectionMatch(swipeDirection))
             {
+                arrowState = ArrowState.Used;
                 eventManager.CallTrueDirectionSwipedEvent();
+                DoTrueSwipeEffect();
                 Debug.Log("True Swiped");
             }
             else
@@ -85,6 +95,11 @@ public class Arrow : MonoBehaviour
                 Debug.Log("Wrong Swiped");
             }
         }
+    }
+    private void DoTrueSwipeEffect()
+    {
+        canMove = false;
+        myAnim.SetTrigger("True");
     }
     private bool CheckDirectionMatch(SwipeDirection swipeDirection)
     {

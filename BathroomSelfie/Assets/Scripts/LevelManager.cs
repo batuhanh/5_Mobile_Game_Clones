@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private EventManager eventManager;
     [SerializeField] private GameObject[] levels;
+    [SerializeField] private int[] photoCountsOfLevels;
     [SerializeField] private int currentLevel;
     [SerializeField] private Text levelText;
     [SerializeField] private GameObject winMenu;
@@ -47,6 +48,10 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(6.2f);
         eventManager.CallLevelStartedEvent();
+    }
+    public int GetCurrentPhotoCount()
+    {
+        return photoCountsOfLevels[currentLevel % photoCountsOfLevels.Length];
     }
     void OnEnable()
     {
