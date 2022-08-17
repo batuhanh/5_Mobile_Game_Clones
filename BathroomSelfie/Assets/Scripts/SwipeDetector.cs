@@ -7,6 +7,7 @@ public enum SwipeDirection
 
 public class SwipeDetector : MonoBehaviour
 {
+    [SerializeField] private EventManager eventManager;
     private const float minSwipeLength = 100f;
     private Vector2 currentSwipe;
 
@@ -71,6 +72,11 @@ public class SwipeDetector : MonoBehaviour
                 Debug.Log("Down Swipe");
                 lastSwipeDirection = SwipeDirection.Down;
             }
+            eventManager.CallFingerSwipedEvent(lastSwipeDirection);
+            //swipe yapýdlýðýnda evenmt ç.aðýr o event olduðunda da arrow lar kontrol etsin o anda true olan var mý varsa
+            //doðru mu diye doðruysa onlar event çaðýrsýn. Arrowdaki boolu iptal et deðiþtir isimini tek sefer çalýþmasýn
+            lastSwipeDirection = SwipeDirection.None;
+
 
         }
     }

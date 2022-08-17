@@ -17,6 +17,15 @@ public class EventManager : MonoBehaviour
     public delegate void LevelFailed();
     public static event LevelFailed myLevelFailed;
 
+    public delegate void FingerSwiped(SwipeDirection swipeDirection);
+    public static event FingerSwiped fingerSwiped;
+
+    public delegate void TrueDirectionSwiped();
+    public static event TrueDirectionSwiped trueDirectionSwiped;
+
+    public delegate void WrongDirectionSwiped();
+    public static event WrongDirectionSwiped wrongDirectionSwiped;
+
     public void CallLevelStartedEvent()
     {
         if (myLevelStarted != null)
@@ -32,6 +41,24 @@ public class EventManager : MonoBehaviour
         if (myLevelFailed != null)
             myLevelFailed();
     }
+
+    public void CallFingerSwipedEvent(SwipeDirection swipeDirection)
+    {
+        if (fingerSwiped != null)
+            fingerSwiped(swipeDirection);
+    }
+
+    public void CallTrueDirectionSwipedEvent()
+    {
+        if (trueDirectionSwiped != null)
+            trueDirectionSwiped();
+    }
+    public void CallWrongDriectionSwipedEvent()
+    {
+        if (wrongDirectionSwiped != null)
+            wrongDirectionSwiped();
+    }
+
 
 
 }
