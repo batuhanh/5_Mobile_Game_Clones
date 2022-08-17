@@ -5,11 +5,12 @@ using UnityEngine;
 public class CleaningTools : MonoBehaviour
 {
     [SerializeField] protected GameObject moveObj;
-    private bool canMove = false;
+    protected bool canMove = false;
     private Vector3 mousePosition;
     private float horizontal;
     private float vertical;
-    private float moveSpeed = 400f;
+    protected float moveSpeed = 250f;
+    protected float lerpSpeed = 4f;
     public virtual void Update()
     {
         if (canMove)
@@ -34,13 +35,14 @@ public class CleaningTools : MonoBehaviour
             moveObj.transform.position = new Vector3(Mathf.Clamp(moveObj.transform.position.x + (moveSpeed * horizontal * Time.deltaTime), -2.5f, 2.5f), moveObj.transform.position.y,
                 Mathf.Clamp(moveObj.transform.position.z + (moveSpeed * vertical * Time.deltaTime), -5.8f, 3f));
 
-            transform.position = Vector3.Lerp(transform.position,moveObj.transform.position, Time.deltaTime * 4f);
+            transform.position = Vector3.Lerp(transform.position,moveObj.transform.position, Time.deltaTime * lerpSpeed);
 
         }
     }
    
     private void MakeItActive()
     {
+        Debug.Log("MakeItACtive");
         canMove = true;
     }
     void OnEnable()
