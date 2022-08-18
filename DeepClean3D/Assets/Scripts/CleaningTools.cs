@@ -9,7 +9,7 @@ public class CleaningTools : MonoBehaviour
     private Vector3 mousePosition;
     private float horizontal;
     private float vertical;
-    protected float moveSpeed = 250f;
+    protected float moveSpeed = 200f;
     protected float lerpSpeed = 4f;
     public virtual void Update()
     {

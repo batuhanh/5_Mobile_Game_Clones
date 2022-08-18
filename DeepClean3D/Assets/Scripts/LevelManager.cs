@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("level", 0);
-        //LoadCurrentlevel();
+        LoadCurrentlevel();
         eventManager.CallLevelStartedEvent();
 
     }
