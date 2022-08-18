@@ -5,6 +5,7 @@ using UnityEngine;
 public class CleaningTools : MonoBehaviour
 {
     [SerializeField] protected GameObject moveObj;
+    [SerializeField] protected Vector3 moveObjStartPos;
     protected bool canMove = false;
     private Vector3 mousePosition;
     private float horizontal;
@@ -45,13 +46,20 @@ public class CleaningTools : MonoBehaviour
         Debug.Log("MakeItACtive");
         canMove = true;
     }
+    private void MakeItDeActive()
+    {
+        Debug.Log("MakeItDeACtive");
+        canMove = false;
+    }
     void OnEnable()
     {
         EventManager.myLevelStarted += MakeItActive;
+        EventManager.myLevelCompleted += MakeItDeActive;
 
     }
     void OnDisable()
     {
         EventManager.myLevelStarted -= MakeItActive;
+        EventManager.myLevelCompleted -= MakeItDeActive;
     }
 }

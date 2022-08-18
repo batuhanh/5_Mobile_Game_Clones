@@ -11,6 +11,8 @@ public class HandVacuum : CleaningTools
     private void Start()
     {
         startPos = transform.position;
+        moveObjStartPos = moveObj.transform.position;
+
     }
     public override void Update()
     {
